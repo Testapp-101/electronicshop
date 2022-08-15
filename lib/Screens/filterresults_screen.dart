@@ -70,9 +70,8 @@ class _FilterResultsScreenState extends State<FilterResultsScreen> {
         }
       }
       for (var item in firstFilterList) {
-        print(item.price!.substring(1));
-        if (int.parse(item.price!.substring(1)) >= minPrice &&
-            int.parse(item.price!.substring(1)) <= maxPrice) {
+        if ((double.parse(item.price!.substring(1))*127.21) >= minPrice &&
+            (double.parse(item.price!.substring(1))*127.21)<= maxPrice) {
           if (!priceFilterList.contains(item)) {
             priceFilterList.add(item);
           }
@@ -167,7 +166,7 @@ class _FilterResultsScreenState extends State<FilterResultsScreen> {
                         height: 4,
                       ),
                       Text(
-                        'Rs. ${(double.parse(finalFilterList[index].price!.substring(1))*127.21).toStringAsFixed(2)}',
+                        'Rs. ${(double.parse(finalFilterList[index].price!.substring(1)) * 127.21).toStringAsFixed(2)}',
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w800),
                       ),

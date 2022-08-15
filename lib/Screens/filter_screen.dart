@@ -69,24 +69,25 @@ class _FilterScreenState extends State<FilterScreen> {
                           )));
                 } else if ((date == DateTime.now().add(Duration(days: 1))) ||
                     (categoriesFilterList.isNotEmpty)) {
-                      if ((minPriceController.text.isEmpty &&
+                  print(1);
+                  if ((minPriceController.text.isEmpty &&
                       maxPriceController.text.isEmpty)) {
-                         Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    print(2);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => FilterResultsScreen(
                               filterList: categoriesFilterList,
                               minPrice: minPrice,
                               maxPrice: maxPrice,
                               date: date,
                             )));
-                  }
-                  else if ((minPriceController.text.isEmpty ||
+                  } else if ((minPriceController.text.isEmpty ||
                       maxPriceController.text.isEmpty)) {
-                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content:
                           Text('Enter both min max price or select a category'),
                     ));
-                   
-                  }  else {
+                  } else {
+                    print(3);
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => FilterResultsScreen(
                               filterList: categoriesFilterList,
