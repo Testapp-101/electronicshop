@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
-//import 'package:flutter_app/screens/forget_password.dart';
 import '../constants.dart';
 
 class AuthForm extends StatefulWidget {
@@ -150,21 +149,6 @@ class _AuthFormState extends State<AuthForm> {
                 SizedBox(
                   height: 10,
                 ),
-                if (_isLogin)
-                  GestureDetector(
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot Password!!!',
-                        style: TextStyle(
-                          color: Colors.yellow.shade800,
-                        ),
-                      ),
-                    ),
-                    onTap: () {
-                      // Navigator.pushNamed(context, ForgetPasswordScreen.id);
-                    },
-                  )
               ],
             ),
           ),

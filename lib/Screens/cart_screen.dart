@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:random/Screens/checkout_screen.dart';
 import 'package:random/componenets/db_helper.dart';
 import 'package:random/model/cart.dart';
 import 'package:random/providers/cart_provider.dart';
@@ -49,6 +49,29 @@ class _CartScreenState extends State<CartScreen> {
               },
             ),
           )),
+          SizedBox(
+            width: 10,
+          ),
+          Badge(
+            badgeContent: Consumer<CartProvider>(
+              builder: (context, value, child) {
+                return  Visibility(
+              visible:(value.getCounter()>0)?true:false,
+              child: IconButton(
+                icon: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => CheckoutScreen(),
+                  ));
+                },
+              ),
+            );
+              },
+            ),
+          ),
           SizedBox(
             width: 20,
           )
@@ -117,8 +140,11 @@ class _CartScreenState extends State<CartScreen> {
                                             Container(
                                               width: width * 0.5,
                                               child: Text(
-                                                snapshot
-                                                    .data![index].productPrice!,
+                                                ((double.parse(snapshot
+                                                            .data![index]
+                                                            .productPrice!)) *
+                                                        127.21)
+                                                    .toStringAsFixed(2),
                                                 textAlign: TextAlign.start,
                                                 style: const TextStyle(
                                                     fontSize: 16,
@@ -288,42 +314,17 @@ class _CartScreenState extends State<CartScreen> {
                 visible: value.getTotalPrice().toStringAsFixed(2) == "0.00"
                     ? false
                     : true,
-                //visible: productSum == 0.00 ? false : true,
                 child: Column(children: <Widget>[
                   ReusableWidget(
                       title: 'Sub Total',
-                      value: value.getTotalPrice().toStringAsFixed(2))
+                      value:
+                          (value.getTotalPrice() * 127.21).toStringAsFixed(2))
                 ]),
               );
             }),
           ),
         ],
       ),
-      // bottomNavigationBar: Padding(
-      //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      //   child: GNav(
-      //     backgroundColor: Colors.white,
-      //     color: Colors.black,
-      //     activeColor: Colors.blue,
-      //     tabBackgroundColor: Colors.grey.shade800,
-      //     padding: EdgeInsets.all(16),
-      //     //onTabChange: (index) {},
-      //     tabs: [
-      //       GButton(
-      //         icon: Icons.home,
-      //         text: 'Home',
-      //       ),
-      //       GButton(
-      //           icon: Icons.shopping_cart,
-      //           text: 'Cart',
-      //           onPressed: () {
-      //             Navigator.of(context).push(MaterialPageRoute(
-      //               builder: (context) => CartScreen(),
-      //             ));
-      //           })
-      //     ],
-      //   ),
-      // )
     );
   }
 }

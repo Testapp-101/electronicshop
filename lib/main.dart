@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:random/Screens/auth_screen.dart';
 import 'package:random/Screens/cart_screen.dart';
+import 'package:random/Screens/checkout_screen.dart';
+import 'package:random/Screens/filter_screen.dart';
+import 'package:random/Screens/filterresults_screen.dart';
 import 'package:random/Screens/home_screen.dart';
 import 'package:random/Screens/nav_screen.dart';
+import 'package:random/Screens/splash_screen.dart';
 import 'package:random/providers/cart_provider.dart';
 
 void main() async {
@@ -24,13 +28,16 @@ class LoginScreen extends StatelessWidget {
         builder: (context) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: NavigationScreen(),
+            home: SplashScreen(),
             //initialRoute: AuthScreen.id,
             routes: {
               AuthScreen.id: (context) => AuthScreen(),
               NavigationScreen.id:(context)=> NavigationScreen(),
               HomeScreen.id: (context) => HomeScreen(),
               CartScreen.id: (context) => CartScreen(),
+              FilterScreen.id: (context) => FilterScreen(),
+              FilterResultsScreen.id: (context) => FilterResultsScreen(minPrice: 0,maxPrice: 0,date: DateTime.now().add(Duration(days: 1)),),
+              CheckoutScreen.id: (context) => CheckoutScreen(),
             },
           );
         },

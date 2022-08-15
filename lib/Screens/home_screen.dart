@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:random/Screens/cart_screen.dart';
+import 'package:random/Screens/filter_screen.dart';
 import 'package:random/componenets/api_calls.dart';
 import 'package:random/componenets/db_helper.dart';
 import 'package:random/model/cart.dart';
@@ -41,6 +41,21 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('Electronic Shop'),
         actions: [
+          IconButton(
+            icon: Icon(
+              Icons.sort,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => FilterScreen(
+                    items: items,
+                  ),
+                ));
+              });
+            },
+          ),
           Center(
               child: Badge(
             badgeContent: Consumer<CartProvider>(
@@ -101,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 4,
                             ),
                             Text(
-                              'Price  ${snapshot.data!.item!.product![index].price!}',
+                              'Rs. ${(double.parse(snapshot.data!.item!.product![index].price!.substring(1))*127.21).toStringAsFixed(2)}',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w800),
                             ),
