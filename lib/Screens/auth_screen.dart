@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random/Screens/home_screen.dart';
+import 'package:random/Screens/nav_screen.dart';
 import 'package:random/componenets/auth_form.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _AuthScreenState extends State<AuthScreen> {
         _userCredential = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
         await storage.write(key: "uid", value: _userCredential.user!.uid);
-        Navigator.pushNamedAndRemoveUntil(context, HomeScreen.id, (r) => false);
+        Navigator.pushNamedAndRemoveUntil(context, NavigationScreen.id, (r) => false);
         setState(() {
           _isLoading = false;
         });
@@ -47,7 +48,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .collection('users')
             .doc(_userCredential.user!.uid)
             .set({'email': email});
-        Navigator.pushNamedAndRemoveUntil(context, HomeScreen.id, (r) => false);
+        Navigator.pushNamedAndRemoveUntil(context, NavigationScreen.id, (r) => false);
         setState(() {
           _isLoading = false;
         });
