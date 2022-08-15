@@ -222,53 +222,56 @@ class _CartScreenState extends State<CartScreen> {
                                                         fontWeight:
                                                             FontWeight.w600)),
                                               ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    int quantity = snapshot
-                                                        .data![index].quantity!;
-                                                    int price = int.parse(
-                                                        snapshot.data![index]
-                                                            .initialPrice!);
-                                                    quantity++;
-                                                    int? newPrice =
-                                                        quantity * price;
-                                                    dbHelper!
-                                                        .updateQuantity(Cart(
-                                                            id: snapshot
+                                              Visibility(
+                                                visible: (snapshot.data![index].stock!>0)?true:false,
+                                                child: InkWell(
+                                                    onTap: () {
+                                                      int quantity = snapshot
+                                                          .data![index].quantity!;
+                                                      int price = int.parse(
+                                                          snapshot.data![index]
+                                                              .initialPrice!);
+                                                      quantity++;
+                                                      int? newPrice =
+                                                          quantity * price;
+                                                      dbHelper!
+                                                          .updateQuantity(Cart(
+                                                              id: snapshot
+                                                                  .data![index]
+                                                                  .id,
+                                                              productId: snapshot
+                                                                  .data![index]
+                                                                  .productId,
+                                                              productName: snapshot
+                                                                  .data![index]
+                                                                  .productName,
+                                                              productImage: snapshot
+                                                                  .data![index]
+                                                                  .productImage,
+                                                              initialPrice: snapshot
+                                                                  .data![index]
+                                                                  .initialPrice,
+                                                              productPrice:
+                                                                  newPrice
+                                                                      .toString(),
+                                                              stock: snapshot
+                                                                  .data![index]
+                                                                  .id,
+                                                              quantity: quantity))
+                                                          .then((value) {
+                                                        newPrice = 0;
+                                                        quantity = 0;
+                                                        cart.addTotalPrice(
+                                                            double.parse(snapshot
                                                                 .data![index]
-                                                                .id,
-                                                            productId: snapshot
-                                                                .data![index]
-                                                                .productId,
-                                                            productName: snapshot
-                                                                .data![index]
-                                                                .productName,
-                                                            productImage: snapshot
-                                                                .data![index]
-                                                                .productImage,
-                                                            initialPrice: snapshot
-                                                                .data![index]
-                                                                .initialPrice,
-                                                            productPrice:
-                                                                newPrice
-                                                                    .toString(),
-                                                            stock: snapshot
-                                                                .data![index]
-                                                                .id,
-                                                            quantity: quantity))
-                                                        .then((value) {
-                                                      newPrice = 0;
-                                                      quantity = 0;
-                                                      cart.addTotalPrice(
-                                                          double.parse(snapshot
-                                                              .data![index]
-                                                              .initialPrice!));
-                                                    }).onError((error,
-                                                            stackTrace) {
-                                                      print(error.toString());
-                                                    });
-                                                  },
-                                                  child: Icon(Icons.add))
+                                                                .initialPrice!));
+                                                      }).onError((error,
+                                                              stackTrace) {
+                                                        print(error.toString());
+                                                      });
+                                                    },
+                                                    child: Icon(Icons.add)),
+                                              )
                                             ]),
                                           ],
                                         ),

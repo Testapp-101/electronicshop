@@ -198,56 +198,59 @@ class _FilterResultsScreenState extends State<FilterResultsScreen> {
                         ]),
                       ]),
                       const SizedBox(height: 8),
-                      InkWell(
-                        onTap: () {
-                          dbHelper
-                              .insert(Cart(
-                                  id: index,
-                                  productId:
-                                      snapshot.data!.item!.product![index].id,
-                                  productName:
-                                      snapshot.data!.item!.product![index].name,
-                                  productImage:
-                                      'https://electronic-ecommerce.herokuapp.com/${snapshot.data!.item!.product![index].image!}',
-                                  initialPrice: (int.parse(snapshot
-                                          .data!.item!.product![index].price!
-                                          .replaceAll(RegExp('[^0-9]'), '')))
-                                      .toString(),
-                                  productPrice: (int.parse(snapshot
-                                          .data!.item!.product![index].price!
-                                          .replaceAll(RegExp('[^0-9]'), '')))
-                                      .toString(),
-                                  stock: snapshot
-                                      .data!.item!.product![index].stock!,
-                                  quantity: 1))
-                              .then((value) {
-                            print('Added to Cart Successfully');
-                            cart.addTotalPrice(double.parse(snapshot
-                                .data!.item!.product![index].price!
-                                .replaceAll(RegExp('[^0-9]'), '')));
-                            Fluttertoast.showToast(
-                                msg: "Item added to Cart Successfully",
-                                toastLength: Toast.LENGTH_LONG,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 3,
-                                backgroundColor: Colors.blue,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                            cart.addCounter();
-                          }).onError((error, stackTrace) {
-                            print(error.toString());
-                          });
-                        },
-                        child: Container(
-                          height: 25,
-                          width: width * 0.4,
-                          color: Colors.blue,
-                          child: const Text('Add to Cart',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600)),
+                      Visibility(
+                        visible: (snapshot.data!.item!.product![index].stock!>0)?true:false,
+                        child: InkWell(
+                          onTap: () {
+                            dbHelper
+                                .insert(Cart(
+                                    id: index,
+                                    productId:
+                                        snapshot.data!.item!.product![index].id,
+                                    productName:
+                                        snapshot.data!.item!.product![index].name,
+                                    productImage:
+                                        'https://electronic-ecommerce.herokuapp.com/${snapshot.data!.item!.product![index].image!}',
+                                    initialPrice: (int.parse(snapshot
+                                            .data!.item!.product![index].price!
+                                            .replaceAll(RegExp('[^0-9]'), '')))
+                                        .toString(),
+                                    productPrice: (int.parse(snapshot
+                                            .data!.item!.product![index].price!
+                                            .replaceAll(RegExp('[^0-9]'), '')))
+                                        .toString(),
+                                    stock: snapshot
+                                        .data!.item!.product![index].stock!,
+                                    quantity: 1))
+                                .then((value) {
+                              print('Added to Cart Successfully');
+                              cart.addTotalPrice(double.parse(snapshot
+                                  .data!.item!.product![index].price!
+                                  .replaceAll(RegExp('[^0-9]'), '')));
+                              Fluttertoast.showToast(
+                                  msg: "Item added to Cart Successfully",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 3,
+                                  backgroundColor: Colors.blue,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                              cart.addCounter();
+                            }).onError((error, stackTrace) {
+                              print(error.toString());
+                            });
+                          },
+                          child: Container(
+                            height: 25,
+                            width: width * 0.4,
+                            color: Colors.blue,
+                            child: const Text('Add to Cart',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600)),
+                          ),
                         ),
                       ),
                     ]);
